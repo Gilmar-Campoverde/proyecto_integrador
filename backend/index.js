@@ -4,10 +4,17 @@ const cors = require('cors');
 
 require('./database');
 
+//settings
+app.set('puerto', process.env.PORT || 3000);
+
+//Middlewares
 app.use(cors());
 app.use(express.json());
 
+//Routes
 app.use('/api/temperatura', require('./routes/temperatura.routes'));
 
-app.listen('3000');
-console.log('Servidor corriendo', 3000);
+//Starting the server
+app.listen(app.get('puerto'), () =>{
+    console.log('Puerto del servidor', app.get('puerto'));
+})
