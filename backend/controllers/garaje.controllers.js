@@ -8,7 +8,6 @@ garajeController.getGaraje = async (req, res) => {
 };
 
 garajeController.setGaraje = async (req, res) => {
-  console.log(req.body.DATO2 + "\n" + req.body.fecha + "\n" + req.body.hora);
   let resultado = await conexion.query(
     "select sk_garaje + 1 \"sk_garaje\", pk_garaje + 1 \"pk_garaje\" from dim_garaje order by sk_garaje desc, pk_garaje desc limit 1;"
   );
@@ -19,8 +18,19 @@ garajeController.setGaraje = async (req, res) => {
         (sk_garaje, pk_garaje, id_sensor, estado_garaje, fecha, hora)
         values
         ($1, $2, $3, $4, $5, $6)`,
-    [sk_gar, pk_gar, "1", req.body.DATO2, req.body.fecha, req.body.hora]
+    [sk_gar, pk_gar, "1", req.body.DATO1, req.body.fecha, req.body.hora]
   );
+  insertFactCasa(sk_gar);
 };
+
+async function insertFactCasa(sk_garaje){
+  let resultados = await conexion.query(
+    `insert into fact_casa
+    (sk_temperatura, sk_iluminacion, sk_garaje, sk_sensores, valor_temperatura, humedad, intensidad_luminica)
+        values
+        ($1, $2, $3, $4, $5, $6, $7)`,
+        ["1", "1", sk_garaje, "1", "25", "54.40", "91"]
+  );
+}
 
 module.exports = garajeController;

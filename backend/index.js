@@ -1,7 +1,7 @@
 const express =require('express');
 const app = express();
 const cors = require('cors');
-
+const morgan = require('morgan');
 require('./database');
 
 //settings
@@ -10,6 +10,7 @@ app.set('puerto', process.env.PORT || 3000);
 //Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));
 
 //Routes
 app.use('/api/temperatura', require('./routes/temperatura.routes'));
