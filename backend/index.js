@@ -13,6 +13,8 @@ app.use(express.json());
 
 //Routes
 app.use('/api/temperatura', require('./routes/temperatura.routes'));
+app.use('/api/garaje', require('./routes/garaje.routes'));
+app.use('/api/iluminacion', require('./routes/iluminacion.routes'));
 
 //Starting the server
 app.listen(app.get('puerto'), () =>{

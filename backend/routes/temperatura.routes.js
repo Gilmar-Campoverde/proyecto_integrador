@@ -3,7 +3,7 @@ const router=Router();
 
 temperatura=require('../controllers/temperatura.controllers');
 
-router.get('/', temperatura.getSensores);
-router.post('/', temperatura.setSensores);
+router.get('/', temperatura.getTemperatura);
+router.post('/', temperatura.setTemperatura);
 
 module.exports = router;
